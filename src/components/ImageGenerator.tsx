@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
+import { Card } from "@/components/ui/card";
 
 export default function ImageGenerator() {
   const [prompt, setPrompt] = useState("");
@@ -57,43 +58,46 @@ export default function ImageGenerator() {
   };
 
   return (
-    <div className="max-w-2xl mx-auto p-6 space-y-8">
+    <Card className="p-6 space-y-8 shadow-lg bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm">
       <div className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="prompt">Enter your prompt</Label>
+          <Label htmlFor="prompt" className="text-slate-700 dark:text-slate-200">Enter your prompt</Label>
           <Input
             id="prompt"
             placeholder="A serene landscape with mountains..."
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
+            className="border-slate-200 dark:border-slate-700"
           />
         </div>
 
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="width">Width</Label>
+            <Label htmlFor="width" className="text-slate-700 dark:text-slate-200">Width</Label>
             <Input
               id="width"
               type="number"
               placeholder="512"
               value={width}
               onChange={(e) => setWidth(e.target.value)}
+              className="border-slate-200 dark:border-slate-700"
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="height">Height</Label>
+            <Label htmlFor="height" className="text-slate-700 dark:text-slate-200">Height</Label>
             <Input
               id="height"
               type="number"
               placeholder="512"
               value={height}
               onChange={(e) => setHeight(e.target.value)}
+              className="border-slate-200 dark:border-slate-700"
             />
           </div>
         </div>
 
         <Button 
-          className="w-full"
+          className="w-full bg-gradient-to-r from-purple-600 to-blue-500 hover:from-purple-700 hover:to-blue-600 text-white"
           onClick={generateImage}
           disabled={!prompt}
         >
@@ -103,7 +107,7 @@ export default function ImageGenerator() {
 
       {imageUrl && (
         <div className="space-y-4">
-          <div className="rounded-lg overflow-hidden border border-gray-200">
+          <div className="rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800">
             <img
               src={imageUrl}
               alt="Generated"
@@ -119,6 +123,6 @@ export default function ImageGenerator() {
           </Button>
         </div>
       )}
-    </div>
+    </Card>
   );
 }
