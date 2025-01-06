@@ -1,78 +1,71 @@
-import React, { useState } from 'react';
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast } from "sonner";
-import { RunwareService } from '@/lib/runware';
+import { useToast } from "@/components/ui/use-toast";
 
-interface ImageGeneratorProps {
-  apiKey: string;
-}
+export default function ImageGenerator() {
+  const [prompt, setPrompt] = useState("");
+  const [width, setWidth] = useState("512");
+  const [height, setHeight] = useState("512");
+  const [imageUrl, setImageUrl] = useState<string | null>(null);
+  const { toast } = useToast();
 
-const ImageGenerator: React.FC<ImageGeneratorProps> = ({ apiKey }) => {
-  const [prompt, setPrompt] = useState('');
-  const [width, setWidth] = useState('1024');
-  const [height, setHeight] = useState('1024');
-  const [generatedImage, setGeneratedImage] = useState<string | null>(null);
-  const [isGenerating, setIsGenerating] = useState(false);
-
-  const runwareService = new RunwareService(apiKey);
-
-  const handleGenerate = async () => {
-    if (!prompt) {
-      toast.error('Please enter a prompt');
-      return;
-    }
-
-    setIsGenerating(true);
+  const generateImage = async () => {
     try {
-      const result = await runwareService.generateImage({
-        positivePrompt: prompt,
-        width: parseInt(width),
-        height: parseInt(height),
+      const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(prompt)}?width=${width}&height=${height}`;
+      setImageUrl(url);
+      toast({
+        title: "Image generated successfully!",
+        description: "You can now save the image if you'd like.",
       });
-      setGeneratedImage(result.imageURL);
-      toast.success('Image generated successfully!');
     } catch (error) {
-      toast.error('Failed to generate image. Please try again.');
-      console.error('Generation error:', error);
-    } finally {
-      setIsGenerating(false);
+      toast({
+        variant: "destructive",
+        title: "Error generating image",
+        description: "Please try again with different parameters.",
+      });
     }
   };
 
-  const handleSave = async () => {
-    if (!generatedImage) return;
+  const saveImage = async () => {
+    if (!imageUrl) return;
     
     try {
-      const response = await fetch(generatedImage);
+      const response = await fetch(imageUrl);
       const blob = await response.blob();
       const url = window.URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `generated-image-${Date.now()}.webp`;
-      document.body.appendChild(a);
-      a.click();
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'generated-image.png';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
-      document.body.removeChild(a);
-      toast.success('Image saved successfully!');
+      
+      toast({
+        title: "Image saved successfully!",
+        description: "Check your downloads folder.",
+      });
     } catch (error) {
-      toast.error('Failed to save image');
-      console.error('Save error:', error);
+      toast({
+        variant: "destructive",
+        title: "Error saving image",
+        description: "Please try again.",
+      });
     }
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto space-y-6 p-6">
+    <div className="max-w-2xl mx-auto p-6 space-y-8">
       <div className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="prompt">Enter your prompt</Label>
           <Input
             id="prompt"
-            placeholder="Describe the image you want to generate..."
+            placeholder="A serene landscape with mountains..."
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
-            className="w-full"
           />
         </div>
 
@@ -82,11 +75,9 @@ const ImageGenerator: React.FC<ImageGeneratorProps> = ({ apiKey }) => {
             <Input
               id="width"
               type="number"
+              placeholder="512"
               value={width}
               onChange={(e) => setWidth(e.target.value)}
-              min="64"
-              max="2048"
-              step="64"
             />
           </div>
           <div className="space-y-2">
@@ -94,54 +85,40 @@ const ImageGenerator: React.FC<ImageGeneratorProps> = ({ apiKey }) => {
             <Input
               id="height"
               type="number"
+              placeholder="512"
               value={height}
               onChange={(e) => setHeight(e.target.value)}
-              min="64"
-              max="2048"
-              step="64"
             />
           </div>
         </div>
+
+        <Button 
+          className="w-full"
+          onClick={generateImage}
+          disabled={!prompt}
+        >
+          Generate Image
+        </Button>
       </div>
 
-      <div className="space-y-4">
-        {generatedImage ? (
-          <div className="relative rounded-lg overflow-hidden bg-muted aspect-square w-full">
+      {imageUrl && (
+        <div className="space-y-4">
+          <div className="rounded-lg overflow-hidden border border-gray-200">
             <img
-              src={generatedImage}
+              src={imageUrl}
               alt="Generated"
-              className="w-full h-full object-cover"
+              className="w-full h-auto"
             />
           </div>
-        ) : (
-          <div className="rounded-lg bg-muted aspect-square w-full flex items-center justify-center">
-            <p className="text-muted-foreground">
-              Your generated image will appear here
-            </p>
-          </div>
-        )}
-
-        <div className="flex gap-4">
-          <Button
-            onClick={handleGenerate}
-            className="flex-1"
-            disabled={isGenerating}
+          <Button 
+            className="w-full"
+            onClick={saveImage}
+            variant="outline"
           >
-            {isGenerating ? 'Generating...' : 'Generate'}
+            Save Image
           </Button>
-          {generatedImage && (
-            <Button
-              onClick={handleSave}
-              variant="secondary"
-              className="flex-1"
-            >
-              Save Image
-            </Button>
-          )}
         </div>
-      </div>
+      )}
     </div>
   );
-};
-
-export default ImageGenerator;
+}
