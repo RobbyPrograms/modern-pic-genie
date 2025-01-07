@@ -1,69 +1,123 @@
-# Welcome to your Lovable project
+# Modern Picture Generator 🎨
 
-## Project info
+A modern web application that generates images using AI through the Runware API. Built with React, TypeScript, and Tailwind CSS.
 
-**URL**: https://lovable.dev/projects/a85eb206-035a-4ffa-abe0-0d1865769d55
+## 🌟 Features
 
-## How can I edit this code?
+- **AI Image Generation**: Create unique images from text descriptions
+- **Customizable Dimensions**: Adjust image width and height
+- **Dark/Light Mode**: Toggle between dark and light themes
+- **Responsive Design**: Works seamlessly on desktop and mobile devices
+- **Image Download**: Save generated images directly to your device
 
-There are several ways of editing your application.
+## 🚀 Getting Started
 
-**Use Lovable**
+### Prerequisites
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/a85eb206-035a-4ffa-abe0-0d1865769d55) and start prompting.
+- Node.js (v14 or higher)
+- npm (comes with Node.js)
 
-Changes made via Lovable will be committed automatically to this repo.
+### Installation
 
-**Use your preferred IDE**
+1. Clone the repository:
+```bash
+git clone <your-repo-url>
+cd modern-pic-genie
+```
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+2. Install dependencies:
+```bash
+npm install
+```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+3. Start the development server:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+4. Open [http://localhost:8080](http://localhost:8080) in your browser
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🛠️ Built With
 
-**Use GitHub Codespaces**
+- [Vite](https://vitejs.dev/) - Next Generation Frontend Tooling
+- [React](https://reactjs.org/) - A JavaScript library for building user interfaces
+- [TypeScript](https://www.typescriptlang.org/) - JavaScript with syntax for types
+- [Tailwind CSS](https://tailwindcss.com/) - A utility-first CSS framework
+- [shadcn/ui](https://ui.shadcn.com/) - Re-usable components built with Radix UI and Tailwind CSS
+- [Runware API](https://runware.ai/) - AI Image Generation API
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 📝 Usage
 
-## What technologies are used for this project?
+1. Enter a text prompt describing the image you want to generate
+2. (Optional) Adjust the width and height settings
+3. Click "Generate Image"
+4. Once the image is generated, you can:
+   - View it directly in the application
+   - Download it to your device using the "Save Image" button
 
-This project is built with .
+## 🎨 Customization
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Theme Customization
+The application supports both light and dark modes. Click the theme toggle button in the top-right corner to switch between modes.
 
-## How can I deploy this project?
+### Image Settings
+- **Width**: Default is 512px, can be adjusted as needed
+- **Height**: Default is 512px, can be adjusted as needed
 
-Simply open [Lovable](https://lovable.dev/projects/a85eb206-035a-4ffa-abe0-0d1865769d55) and click on Share -> Publish.
+## 🤝 Contributing
 
-## I want to use a custom domain - is that possible?
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙏 Acknowledgments
+
+- [Runware](https://runware.ai/) for providing the AI image generation capabilities
+- [shadcn/ui](https://ui.shadcn.com/) for the beautiful UI components
+- The React and TypeScript communities for their excellent documentation
+
+## ⚠️ Important Notes
+
+- You'll need a Runware API key to generate images
+- The application requires a modern browser with JavaScript enabled
+- Image generation may take a few seconds depending on the complexity of the prompt
+
+## 🐛 Troubleshooting
+
+If you encounter any issues:
+
+1. Make sure all dependencies are installed correctly
+2. Check that you're using a supported Node.js version
+3. Clear your browser cache
+4. Check the console for any error messages
+
+For more help, please submit an issue on the project repository.
+
+# AI Image Generator
+
+AI Image Generator is a Python application that allows users to generate images using AI based on user prompts. The application provides a graphical user interface (GUI) for entering prompts, specifying image dimensions, generating images, and saving the generated images. Stored in the AI-Compenents folder in the repo
+
+## Features
+
+- Enter a prompt to generate an image using AI
+- Specify the width and height of the generated image
+- Display the generated image in the application
+- Save the generated image to your local machine
+- Modern and clean user interface using `ttkbootstrap`
+
+## Requirements
+
+- Python 3.6+
+- `ttkbootstrap` library
+- `Pillow` library
+- `requests` library
+
+## Installation
+
+1. Clone the repository:
+
+```sh
+git clone https://github.com/yourusername/ai-image-generator.git
+cd ai-image-generator
