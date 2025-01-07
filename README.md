@@ -68,10 +68,6 @@ The application supports both light and dark modes. Click the theme toggle butto
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
 ## 🙏 Acknowledgments
 
 - [Runware](https://runware.ai/) for providing the AI image generation capabilities
